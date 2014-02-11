@@ -1,8 +1,8 @@
 {
   "name": "angular-sanitize",
-  "version": "1.2.13-build.2244+sha.2dfbc08",
+  "version": "1.2.13-build.2245+sha.f99fe79",
   "main": "./angular-sanitize.js",
   "dependencies": {
-    "angular": "1.2.13-build.2244+sha.2dfbc08"
+    "angular": "1.2.13-build.2245+sha.f99fe79"
   }
 }
