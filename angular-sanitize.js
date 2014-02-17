@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.14-build.2267+sha.cceb455
+ * @license AngularJS v1.2.14-build.2268+sha.1fb47e0
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -8,7 +8,7 @@
 var $sanitizeMinErr = angular.$$minErr('$sanitize');
 
 /**
- * @ngdoc overview
+ * @ngdoc module
  * @name ngSanitize
  * @description
  *
@@ -42,7 +42,7 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
 
 /**
  * @ngdoc service
- * @name ngSanitize.$sanitize
+ * @name $sanitize
  * @function
  *
  * @description
@@ -58,8 +58,8 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
  * @returns {string} Sanitized html.
  *
  * @example
-   <doc:example module="ngSanitize">
-   <doc:source>
+   <example module="ngSanitize" deps="angular-sanitize.js">
+   <file name="index.html">
      <script>
        function Ctrl($scope, $sce) {
          $scope.snippet =
@@ -103,8 +103,8 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
          </tr>
        </table>
        </div>
-   </doc:source>
-   <doc:protractor>
+   </file>
+   <file name="protractor.js" type="protractor">
      it('should sanitize the html snippet by default', function() {
        expect(element(by.css('#bind-html-with-sanitize div')).getInnerHtml()).
          toBe('<p>an html\n<em>click here</em>\nsnippet</p>');
@@ -134,8 +134,8 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
        expect(element(by.css('#bind-default div')).getInnerHtml()).toBe(
          "new &lt;b onclick=\"alert(1)\"&gt;text&lt;/b&gt;");
      });
-   </doc:protractor>
-   </doc:example>
+   </file>
+   </example>
  */
 function $SanitizeProvider() {
   this.$get = ['$$sanitizeUri', function($$sanitizeUri) {
@@ -476,7 +476,7 @@ angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
 
 /**
  * @ngdoc filter
- * @name ngSanitize.filter:linky
+ * @name linky
  * @function
  *
  * @description
@@ -493,8 +493,8 @@ angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
    <span ng-bind-html="linky_expression | linky"></span>
  *
  * @example
-   <doc:example module="ngSanitize">
-     <doc:source>
+   <example module="ngSanitize" deps="angular-sanitize.js">
+     <file name="index.html">
        <script>
          function Ctrl($scope) {
            $scope.snippet =
@@ -538,8 +538,8 @@ angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
            <td><div ng-bind="snippet"></div></td>
          </tr>
        </table>
-     </doc:source>
-     <doc:protractor>
+     </file>
+     <file name="protractor.js" type="protractor">
        it('should linkify the snippet with urls', function() {
          expect(element(by.id('linky-filter')).element(by.binding('snippet | linky')).getText()).
              toBe('Pretty text with some links: http://angularjs.org/, us@somewhere.org, ' +
@@ -570,8 +570,8 @@ angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
             toBe('http://angularjs.org/');
         expect(element(by.css('#linky-target a')).getAttribute('target')).toEqual('_blank');
        });
-     </doc:protractor>
-   </doc:example>
+     </file>
+   </example>
  */
 angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
   var LINKY_URL_REGEXP =
