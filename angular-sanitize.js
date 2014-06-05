@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.17-build.225+sha.9227a5d
+ * @license AngularJS v1.2.17-build.226+sha.b6388b3
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -42,7 +42,7 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
 /**
  * @ngdoc service
  * @name $sanitize
- * @function
+ * @kind function
  *
  * @description
  *   The input is sanitized by parsing the html into tokens. All safe tokens (from a whitelist) are
@@ -482,7 +482,7 @@ angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
 /**
  * @ngdoc filter
  * @name linky
- * @function
+ * @kind function
  *
  * @description
  * Finds links in text input and turns them into html links. Supports http/https/ftp/mailto and
