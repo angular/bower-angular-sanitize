@@ -2,6 +2,7 @@
   "name": "angular-sanitize",
   "version": "1.2.24-build.406+sha.fa5daa7",
   "main": "./angular-sanitize.js",
+  "ignore": [],
   "dependencies": {
     "angular": "1.2.24-build.406+sha.fa5daa7"
   }
