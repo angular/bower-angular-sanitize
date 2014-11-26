@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.3.5-build.3622+sha.08cd5c1
+ * @license AngularJS v1.3.5-build.3623+sha.2ec8d1f
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -666,7 +666,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                   '" ');
       }
       html.push('href="',
-                url.replace('"', '&quot;'),
+                url.replace(/"/g, '&quot;'),
                 '">');
       addText(text);
       html.push('</a>');
