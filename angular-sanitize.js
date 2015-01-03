@@ -237,7 +237,7 @@ var svgAttrs = makeMap('accent-height,accumulate,additive,alphabetic,arabic-form
     'repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,rotate,rx,ry,slope,stemh,' +
     'stemv,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,stroke,' +
     'stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,' +
-    'stroke-opacity,stroke-width,systemLanguage,target,text-anchor,to,transform,type,u1,u2,' +
+    'stroke-opacity,stroke-width,style,systemLanguage,target,text-anchor,to,transform,type,u1,u2,' +
     'underline-position,underline-thickness,unicode,unicode-range,units-per-em,values,version,' +
     'viewBox,visibility,width,widths,x,x-height,x1,x2,xlink:actuate,xlink:arcrole,xlink:role,' +
     'xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,xmlns,xmlns:xlink,y,y1,y2,' +
