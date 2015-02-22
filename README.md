@@ -14,20 +14,11 @@ You can install this package either with `npm` or with `bower`.
 npm install angular-sanitize
 ```
 
-Add a `<script>` to your `index.html`:
-
-```html
-<script src="/node_modules/angular-sanitize/angular-sanitize.js"></script>
-```
-
 Then add `ngSanitize` as a dependency for your app:
 
 ```javascript
-angular.module('myApp', ['ngSanitize']);
+angular.module('myApp', [require('angular-sanitize')]);
 ```
-
-Note that this package is not in CommonJS format, so doing `require('angular-sanitize')` will
-return `undefined`.
 
 ### bower
 
