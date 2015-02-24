@@ -169,7 +169,7 @@ var START_TAG_REGEXP =
   CDATA_REGEXP = /<!\[CDATA\[(.*?)]]>/g,
   SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
   // Match everything outside of normal chars and " (quote character)
-  NON_ALPHANUMERIC_REGEXP = /([^\#-~| |!])/g;
+  NON_ALPHANUMERIC_REGEXP = /([^\#-~| |!Ö-öÄ-äÅ-å])/g;
 
 
 // Good source of info about elements and attributes
