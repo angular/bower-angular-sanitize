@@ -1,9 +1,9 @@
 {
   "name": "angular-sanitize",
-  "version": "1.4.0-build.3901+sha.6a03ca2",
+  "version": "1.4.0-build.3902+sha.3086fcd",
   "main": "./angular-sanitize.js",
   "ignore": [],
   "dependencies": {
-    "angular": "1.4.0-build.3901+sha.6a03ca2"
+    "angular": "1.4.0-build.3902+sha.3086fcd"
   }
 }
