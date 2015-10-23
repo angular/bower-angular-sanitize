@@ -298,6 +298,10 @@ function toMap(str, lowercaseKeys) {
   return obj;
 }
 
+function isValidAttrs(attr) {
+    return validAttrs[attr] === true || /data-\w/.test(attr);
+}
+
 var inertBodyElement;
 (function(window) {
   var doc;
@@ -449,7 +453,7 @@ function htmlSanitizeWriter(buf, uriValidator) {
         angular.forEach(attrs, function(value, key) {
           var lkey=angular.lowercase(key);
           var isImage = (tag === 'img' && lkey === 'src') || (lkey === 'background');
-          if (validAttrs[lkey] === true &&
+          if (isValidAttrs(lkey) &&
             (uriAttrs[lkey] !== true || uriValidator(value, isImage))) {
             out(' ');
             out(key);
