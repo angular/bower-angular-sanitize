@@ -231,6 +231,9 @@ var optionalEndTagBlockElements = toMap("colgroup,dd,dt,li,p,tbody,td,tfoot,th,t
                                             optionalEndTagInlineElements,
                                             optionalEndTagBlockElements);
 
+// For latex 
+var mathElements = toMap("mo,mi,mrow,math,semantics,mrow,mn,mtd,mtr,mtable,mtext,mfrac,annotation");
+
 // Safe Block Elements - HTML5
 var blockElements = angular.extend({}, optionalEndTagBlockElements, toMap("address,article," +
         "aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5," +
@@ -256,6 +259,7 @@ var validElements = angular.extend({},
                                    voidElements,
                                    blockElements,
                                    inlineElements,
+                                   mathElements,
                                    optionalEndTagElements);
 
 //Attributes that have href and hence need to be sanitized
@@ -265,7 +269,7 @@ var htmlAttrs = toMap('abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacin
     'color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,' +
     'ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,span,start,summary,tabindex,target,title,type,' +
-    'valign,value,vspace,width,checked');
+    'valign,value,vspace,width,checked,style,mathvariant,encoding');
 
 // SVG attributes (without "id" and "name" attributes)
 // https://wiki.whatwg.org/wiki/Sanitization_rules#svg_Attributes
