@@ -150,6 +150,7 @@ function $SanitizeProvider() {
   this.$get = ['$$sanitizeUri', function($$sanitizeUri) {
     if (svgEnabled) {
       angular.extend(validElements, svgElements);
+      angular.extend(validAttrs, svgAttrs);
     }
     return function(html) {
       var buf = [];
@@ -269,7 +270,7 @@ var htmlAttrs = toMap('abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacin
     'color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,' +
     'ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,span,start,summary,tabindex,target,title,type,' +
-    'valign,value,vspace,width,checked,style,mathvariant,encoding');
+    'valign,value,vspace,width,checked,style,mathvariant,encoding,id,name');
 
 // SVG attributes (without "id" and "name" attributes)
 // https://wiki.whatwg.org/wiki/Sanitization_rules#svg_Attributes
@@ -291,7 +292,6 @@ var svgAttrs = toMap('accent-height,accumulate,additive,alphabetic,arabic-form,a
 
 var validAttrs = angular.extend({},
                                 uriAttrs,
-                                svgAttrs,
                                 htmlAttrs);
 
 function toMap(str, lowercaseKeys) {
