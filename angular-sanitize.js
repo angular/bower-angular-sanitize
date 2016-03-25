@@ -200,6 +200,14 @@ function $SanitizeProvider() {
       return svgEnabled;
     }
   };
+  // allow some style tag: ex> ['background', 'color']
+  this.setAllowStyle = function(styleArr){
+      customAllowStyleProperty = styleArr;
+  };
+  // allow some class for not allowed tag: ex> {input: ['task-list']}
+  this.setAllowElementAndClassName = function(classSet){
+      customElementAndClassName = classSet;
+  };
 }
 
 function sanitizeText(chars) {
@@ -238,7 +246,7 @@ var mathElements = toMap("mo,mi,mrow,math,semantics,mrow,mn,mtd,mtr,mtable,mtext
 // Safe Block Elements - HTML5
 var blockElements = angular.extend({}, optionalEndTagBlockElements, toMap("address,article," +
         "aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5," +
-        "h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,section,table,ul,input"));
+        "h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,section,table,ul"));
 
 // Inline Elements - HTML5
 var inlineElements = angular.extend({}, optionalEndTagInlineElements, toMap("a,abbr,acronym,b," +
@@ -270,7 +278,7 @@ var htmlAttrs = toMap('abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacin
     'color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,' +
     'ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,span,start,summary,tabindex,target,title,type,' +
-    'valign,value,vspace,width,checked,style,mathvariant,encoding,id,name');
+    'valign,value,vspace,width,checked,mathvariant,encoding,id,name');
 
 // SVG attributes (without "id" and "name" attributes)
 // https://wiki.whatwg.org/wiki/Sanitization_rules#svg_Attributes
@@ -293,6 +301,10 @@ var svgAttrs = toMap('accent-height,accumulate,additive,alphabetic,arabic-form,a
 var validAttrs = angular.extend({},
                                 uriAttrs,
                                 htmlAttrs);
+                                
+var customElementAndClassName = {},
+    customAllowStyleProperty = [];
+
 
 function toMap(str, lowercaseKeys) {
   var obj = {}, items = str.split(','), i;
@@ -451,8 +463,9 @@ function htmlSanitizeWriter(buf, uriValidator) {
       if (!ignoreCurrentElement && blockedElements[tag]) {
         ignoreCurrentElement = tag;
       }
-      if (!ignoreCurrentElement && validElements[tag] === true) {
-        out('<');
+       if (!ignoreCurrentElement && (validElements[tag] === true
+      || (customElementAndClassName[tag] && attrs.class && attrs.class.indexOf(customElementAndClassName[tag]) > -1))) {
+       out('<');
         out(tag);
         angular.forEach(attrs, function(value, key) {
           var lkey=angular.lowercase(key);
@@ -464,6 +477,19 @@ function htmlSanitizeWriter(buf, uriValidator) {
             out('="');
             out(encodeEntities(value));
             out('"');
+          }
+          
+           if(lkey === 'style' && customAllowStyleProperty.length > 0){
+              var styleArrs = value.replace(/\s/g, '').split(';');
+              out(' style="');
+              angular.forEach(styleArrs, function(value) {
+                 var key = value.split(':')[0];
+                  if(customAllowStyleProperty.indexOf(key) > -1){
+                      out(encodeEntities(value));
+                      out('; ');
+                  }
+              });
+              out('"');
           }
         });
         out('>');
