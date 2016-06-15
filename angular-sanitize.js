@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.5.7-build.4885+sha.6bc81ae
+ * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -369,7 +369,7 @@ function htmlParser(html, handler) {
 
     var nextNode;
     if (!(nextNode = node.firstChild)) {
-      if (node.nodeType === 1) {
+      if (node.nodeType == 1) {
         handler.end(node.nodeName.toLowerCase());
       }
       nextNode = node.nextSibling;
@@ -378,7 +378,7 @@ function htmlParser(html, handler) {
           node = node.parentNode;
           if (node === inertBodyElement) break;
           nextNode = node.nextSibling;
-          if (node.nodeType === 1) {
+          if (node.nodeType == 1) {
             handler.end(node.nodeName.toLowerCase());
           }
         }
