@@ -150,6 +150,7 @@ function $SanitizeProvider() {
   this.$get = ['$$sanitizeUri', function($$sanitizeUri) {
     if (svgEnabled) {
       angular.extend(validElements, svgElements);
+      angular.extend(validAttrs, svgAttrs);
     }
     return function(html) {
       var buf = [];
@@ -199,6 +200,14 @@ function $SanitizeProvider() {
       return svgEnabled;
     }
   };
+  // allow some style tag: ex> ['background', 'color']
+  this.setAllowStyle = function(styleArr){
+      customAllowStyleProperty = styleArr;
+  };
+  // allow some class for not allowed tag: ex> {input: ['task-list']}
+  this.setAllowElementAndClassName = function(classSet){
+      customElementAndClassName = classSet;
+  };
 }
 
 function sanitizeText(chars) {
@@ -231,6 +240,9 @@ var optionalEndTagBlockElements = toMap("colgroup,dd,dt,li,p,tbody,td,tfoot,th,t
                                             optionalEndTagInlineElements,
                                             optionalEndTagBlockElements);
 
+// For latex 
+var mathElements = toMap("mo,mi,mrow,math,semantics,mrow,mn,mtd,mtr,mtable,mtext,mfrac,annotation");
+
 // Safe Block Elements - HTML5
 var blockElements = angular.extend({}, optionalEndTagBlockElements, toMap("address,article," +
         "aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5," +
@@ -256,6 +268,7 @@ var validElements = angular.extend({},
                                    voidElements,
                                    blockElements,
                                    inlineElements,
+                                   mathElements,
                                    optionalEndTagElements);
 
 //Attributes that have href and hence need to be sanitized
@@ -265,7 +278,7 @@ var htmlAttrs = toMap('abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacin
     'color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,' +
     'ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,span,start,summary,tabindex,target,title,type,' +
-    'valign,value,vspace,width');
+    'valign,value,vspace,width,checked,mathvariant,encoding,id,name');
 
 // SVG attributes (without "id" and "name" attributes)
 // https://wiki.whatwg.org/wiki/Sanitization_rules#svg_Attributes
@@ -287,8 +300,11 @@ var svgAttrs = toMap('accent-height,accumulate,additive,alphabetic,arabic-form,a
 
 var validAttrs = angular.extend({},
                                 uriAttrs,
-                                svgAttrs,
                                 htmlAttrs);
+                                
+var customElementAndClassName = {},
+    customAllowStyleProperty = [];
+
 
 function toMap(str, lowercaseKeys) {
   var obj = {}, items = str.split(','), i;
@@ -296,6 +312,10 @@ function toMap(str, lowercaseKeys) {
     obj[lowercaseKeys ? angular.lowercase(items[i]) : items[i]] = true;
   }
   return obj;
+}
+
+function isValidAttrs(attr) {
+    return validAttrs[attr] === true || /data-\w/.test(attr);
 }
 
 var inertBodyElement;
@@ -443,19 +463,33 @@ function htmlSanitizeWriter(buf, uriValidator) {
       if (!ignoreCurrentElement && blockedElements[tag]) {
         ignoreCurrentElement = tag;
       }
-      if (!ignoreCurrentElement && validElements[tag] === true) {
-        out('<');
+       if (!ignoreCurrentElement && (validElements[tag] === true
+      || (customElementAndClassName[tag] && attrs.class && attrs.class.indexOf(customElementAndClassName[tag]) > -1))) {
+       out('<');
         out(tag);
         angular.forEach(attrs, function(value, key) {
           var lkey=angular.lowercase(key);
           var isImage = (tag === 'img' && lkey === 'src') || (lkey === 'background');
-          if (validAttrs[lkey] === true &&
+          if (isValidAttrs(lkey) &&
             (uriAttrs[lkey] !== true || uriValidator(value, isImage))) {
             out(' ');
             out(key);
             out('="');
             out(encodeEntities(value));
             out('"');
+          }
+          
+           if(lkey === 'style' && customAllowStyleProperty.length > 0){
+              var styleArrs = value.replace(/\s/g, '').split(';');
+              out(' style="');
+              angular.forEach(styleArrs, function(value) {
+                 var key = value.split(':')[0];
+                  if(customAllowStyleProperty.indexOf(key) > -1){
+                      out(encodeEntities(value));
+                      out('; ');
+                  }
+              });
+              out('"');
           }
         });
         out('>');
