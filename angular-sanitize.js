@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.5.9-build.5160+sha.6e91f9c
+ * @license AngularJS v1.5.9
  * (c) 2010-2016 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -383,7 +383,7 @@ function $SanitizeProvider() {
 
       var nextNode;
       if (!(nextNode = node.firstChild)) {
-        if (node.nodeType === 1) {
+      if (node.nodeType === 1) {
           handler.end(node.nodeName.toLowerCase());
         }
         nextNode = node.nextSibling;
@@ -392,7 +392,7 @@ function $SanitizeProvider() {
             node = node.parentNode;
             if (node === inertBodyElement) break;
             nextNode = node.nextSibling;
-            if (node.nodeType === 1) {
+          if (node.nodeType === 1) {
               handler.end(node.nodeName.toLowerCase());
             }
           }
@@ -504,26 +504,27 @@ function $SanitizeProvider() {
    * @param node Root element to process
    */
   function stripCustomNsAttrs(node) {
-    while (node) {
-      if (node.nodeType === window.Node.ELEMENT_NODE) {
-        var attrs = node.attributes;
-        for (var i = 0, l = attrs.length; i < l; i++) {
-          var attrNode = attrs[i];
-          var attrName = attrNode.name.toLowerCase();
-          if (attrName === 'xmlns:ns1' || attrName.lastIndexOf('ns1:', 0) === 0) {
-            node.removeAttributeNode(attrNode);
-            i--;
-            l--;
-          }
+    if (node.nodeType === window.Node.ELEMENT_NODE) {
+      var attrs = node.attributes;
+      for (var i = 0, l = attrs.length; i < l; i++) {
+        var attrNode = attrs[i];
+        var attrName = attrNode.name.toLowerCase();
+        if (attrName === 'xmlns:ns1' || attrName.lastIndexOf('ns1:', 0) === 0) {
+          node.removeAttributeNode(attrNode);
+          i--;
+          l--;
         }
       }
+    }
 
-      var nextNode = node.firstChild;
-      if (nextNode) {
-        stripCustomNsAttrs(nextNode);
-      }
+    var nextNode = node.firstChild;
+    if (nextNode) {
+      stripCustomNsAttrs(nextNode);
+    }
 
-      node = node.nextSibling;
+    nextNode = node.nextSibling;
+    if (nextNode) {
+      stripCustomNsAttrs(nextNode);
     }
   }
 }
