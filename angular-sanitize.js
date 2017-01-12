@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.6.2-build.5241+sha.5b6763f
+ * @license AngularJS v1.5.11
  * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -383,7 +383,7 @@ function $SanitizeProvider() {
 
       var nextNode;
       if (!(nextNode = node.firstChild)) {
-        if (node.nodeType === 1) {
+      if (node.nodeType === 1) {
           handler.end(node.nodeName.toLowerCase());
         }
         nextNode = node.nextSibling;
@@ -392,7 +392,7 @@ function $SanitizeProvider() {
             node = node.parentNode;
             if (node === inertBodyElement) break;
             nextNode = node.nextSibling;
-            if (node.nodeType === 1) {
+          if (node.nodeType === 1) {
               handler.end(node.nodeName.toLowerCase());
             }
           }
