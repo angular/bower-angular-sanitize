@@ -251,7 +251,7 @@ var blockElements = angular.extend({}, optionalEndTagBlockElements, toMap("addre
 // Inline Elements - HTML5
 var inlineElements = angular.extend({}, optionalEndTagInlineElements, toMap("a,abbr,acronym,b," +
         "bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,q,ruby,rp,rt,s," +
-        "samp,small,span,strike,strong,sub,sup,time,tt,u,var"));
+        "samp,small,span,strike,strong,sub,sup,time,tt,u,var,source"));
 
 // SVG Elements
 // https://wiki.whatwg.org/wiki/Sanitization_rules#svg_Elements
@@ -278,7 +278,7 @@ var htmlAttrs = toMap('abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacin
     'color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,' +
     'ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,span,start,summary,tabindex,target,title,type,' +
-    'valign,value,vspace,width,checked,mathvariant,encoding,id,name');
+    'valign,value,vspace,width,checked,mathvariant,encoding,id,name,controls');
 
 // SVG attributes (without "id" and "name" attributes)
 // https://wiki.whatwg.org/wiki/Sanitization_rules#svg_Attributes
@@ -497,7 +497,7 @@ function htmlSanitizeWriter(buf, uriValidator) {
     },
     end: function(tag) {
       tag = angular.lowercase(tag);
-      if (!ignoreCurrentElement && validElements[tag] === true && voidElements[tag] !== true) {
+      if (!ignoreCurrentElement && (validElements[tag] === true || customElementAndClassName[tag]) && voidElements[tag] !== true) {
         out('</');
         out(tag);
         out('>');
