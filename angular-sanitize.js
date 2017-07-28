@@ -208,6 +208,10 @@ function $SanitizeProvider() {
   this.setAllowElementAndClassName = function(classSet){
       customElementAndClassName = classSet;
   };
+  // allow some class for not allowed tag: ex> {onload: ['task-list']}
+  this.customAllowAttrAndClassName = function(classSet){
+      customAllowAttrAndClassName = classSet;
+  };
 }
 
 function sanitizeText(chars) {
@@ -303,6 +307,7 @@ var validAttrs = angular.extend({},
                                 htmlAttrs);
                                 
 var customElementAndClassName = {},
+    customAllowAttrAndClassName = {},
     customAllowStyleProperty = [];
 
 
@@ -471,7 +476,7 @@ function htmlSanitizeWriter(buf, uriValidator) {
           var lkey=angular.lowercase(key);
           var isImage = (tag === 'img' && lkey === 'src') || (lkey === 'background');
           if (isValidAttrs(lkey) &&
-            (uriAttrs[lkey] !== true || uriValidator(value, isImage))) {
+            (uriAttrs[lkey] !== true || uriValidator(value, isImage)) || attrs.class.indexOf(customAllowAttrAndClassName[lkey]) > -1) {
             out(' ');
             out(key);
             out('="');
