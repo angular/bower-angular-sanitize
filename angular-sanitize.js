@@ -476,7 +476,7 @@ function htmlSanitizeWriter(buf, uriValidator) {
           var lkey=angular.lowercase(key);
           var isImage = (tag === 'img' && lkey === 'src') || (lkey === 'background');
           if (isValidAttrs(lkey) &&
-            (uriAttrs[lkey] !== true || uriValidator(value, isImage)) || attrs.class.indexOf(customAllowAttrAndClassName[lkey]) > -1) {
+            (uriAttrs[lkey] !== true || uriValidator(value, isImage)) || (attrs.class && attrs.class.indexOf(customAllowAttrAndClassName[lkey]) > -1)) {
             out(' ');
             out(key);
             out('="');
