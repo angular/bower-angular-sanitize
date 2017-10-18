@@ -1,6 +1,6 @@
 {
   "name": "angular-sanitize",
-  "version": "1.6.7-build.5480+sha.00936ad",
+  "version": "1.6.7-build.5482+sha.69e0968",
   "description": "AngularJS module for sanitizing HTML",
   "main": "index.js",
   "scripts": {
