@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.6.8-build.5525+sha.9a521cb
+ * @license AngularJS v1.6.8
  * (c) 2010-2017 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -213,7 +213,7 @@ function $SanitizeProvider() {
   extend = angular.extend;
   forEach = angular.forEach;
   isDefined = angular.isDefined;
-  lowercase = angular.$$lowercase;
+  lowercase = angular.lowercase;
   noop = angular.noop;
 
   htmlParser = htmlParserImpl;
@@ -599,7 +599,7 @@ function sanitizeText(chars) {
 // define ngSanitize module and register $sanitize service
 angular.module('ngSanitize', [])
   .provider('$sanitize', $SanitizeProvider)
-  .info({ angularVersion: '1.6.8-build.5525+sha.9a521cb' });
+  .info({ angularVersion: '1.6.8' });
 
 /**
  * @ngdoc filter
