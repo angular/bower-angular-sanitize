@@ -479,7 +479,7 @@
                 }
 
                 if (!ignoreCurrentElement && (validElements[tag] === true
-                        || (customElementAndClassName[tag] && attrs.class && attrs.class.indexOf(customElementAndClassName[tag]) > -1))) {
+                        || (customElementAndClassName[tag] && attrs.class && customElementAndClassName[tag].indexOf(attrs.class) > -1))) {
                     out('<');
                     out(tag);
                     angular.forEach(attrs, function(value, key) {
