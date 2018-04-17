@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.6.10-build.5553+sha.b2ed68d
+ * @license AngularJS v1.6.10
  * (c) 2010-2018 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -47,11 +47,12 @@ var htmlSanitizeWriter;
  *   Sanitizes an html string by stripping all potentially dangerous tokens.
  *
  *   The input is sanitized by parsing the HTML into tokens. All safe tokens (from a whitelist) are
- *   then serialized back to a properly escaped HTML string. This means that no unsafe input can make
+ *   then serialized back to properly escaped html string. This means that no unsafe input can make
  *   it into the returned string.
  *
  *   The whitelist for URL sanitization of attribute values is configured using the functions
- *   `aHrefSanitizationWhitelist` and `imgSrcSanitizationWhitelist` of {@link $compileProvider}.
+ *   `aHrefSanitizationWhitelist` and `imgSrcSanitizationWhitelist` of {@link ng.$compileProvider
+ *   `$compileProvider`}.
  *
  *   The input may also contain SVG markup if this is enabled via {@link $sanitizeProvider}.
  *
@@ -315,7 +316,7 @@ function $SanitizeProvider() {
   forEach = angular.forEach;
   isArray = angular.isArray;
   isDefined = angular.isDefined;
-  lowercase = angular.$$lowercase;
+  lowercase = angular.lowercase;
   noop = angular.noop;
 
   htmlParser = htmlParserImpl;
@@ -711,7 +712,7 @@ function sanitizeText(chars) {
 // define ngSanitize module and register $sanitize service
 angular.module('ngSanitize', [])
   .provider('$sanitize', $SanitizeProvider)
-  .info({ angularVersion: '1.6.10-build.5553+sha.b2ed68d' });
+  .info({ angularVersion: '1.6.10' });
 
 /**
  * @ngdoc filter
