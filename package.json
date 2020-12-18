@@ -24,6 +24,7 @@
   },
   "homepage": "http://angularjs.org",
   "jspm": {
+    "main": "index",
     "shim": {
       "angular-sanitize": {
         "deps": ["angular"]
